@@ -1,0 +1,14 @@
+---
+import Base from "@/layouts/Base.astro";
+import { AppConfig } from "@/utils/AppConfig";
+---
+
+<Base
+  props={{
+    title: "About | " + AppConfig.author,
+    description: AppConfig.description,
+    image: AppConfig.image,
+  }}
+>
+  <h1>About</h1>
+</Base>

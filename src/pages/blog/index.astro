@@ -1,0 +1,32 @@
+---
+import { getCollection } from "astro:content";
+import Base from "@/layouts/Base.astro";
+import { AppConfig } from "@/utils/AppConfig";
+
+const posts = await getCollection("blog");
+
+const sortedPosts = posts.sort((a, b) => {
+  return +new Date(b.data.createdDate) - +new Date(a.data.createdDate);
+});
+---
+
+<Base
+  props={{
+    title: "My collection of essays",
+    description: AppConfig.description,
+    image: AppConfig.image,
+  }}
+>
+  <h1>Posts</h1>
+  <ul>
+    {
+      sortedPosts.map((p) => {
+        return (
+          <li>
+            <a href={"/blog/" + p.slug}>{p.data.title}</a>
+          </li>
+        );
+      })
+    }
+  </ul>
+</Base>

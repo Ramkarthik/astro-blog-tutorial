@@ -1,0 +1,47 @@
+---
+import { SEO } from "astro-seo";
+import { AppConfig } from "@/utils/AppConfig";
+
+export interface HeadProps {
+  props: {
+    title: string;
+    description: string;
+    image?: string | undefined;
+  };
+}
+
+const {
+  props: { title, description, image },
+} = Astro.props as HeadProps;
+---
+
+<SEO
+  title={title || AppConfig.title}
+  description={description || AppConfig.description}
+  openGraph={{
+    basic: {
+      title: title || AppConfig.title,
+      type: description || AppConfig.description,
+      image: AppConfig.site + (image || AppConfig.image || ""),
+    },
+  }}
+  twitter={{
+    creator: AppConfig.twitter,
+  }}
+  extend={{
+    // extending the default link tags
+    link: [{ rel: "icon", href: "/favicon.svg" }],
+    // extending the default meta tags
+    meta: [
+      {
+        name: "twitter:image",
+        content: AppConfig.site + (image || AppConfig.image || ""),
+      },
+      { name: "twitter:title", content: title || AppConfig.title },
+      {
+        name: "twitter:description",
+        content: description || AppConfig.description,
+      },
+    ],
+  }}
+/>

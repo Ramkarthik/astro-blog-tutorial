@@ -1,0 +1,21 @@
+---
+import { AppConfig } from "../utils/AppConfig";
+---
+
+<nav role="navigation" class="justify-between">
+  <a href="/">{AppConfig.author}</a>
+  <div>
+    {
+      AppConfig.pages.map((p, index) => {
+        return (
+          <span>
+            <a href={p.link}>
+              <small>{p.name}</small>
+            </a>
+            {index != AppConfig.pages.length - 1 && <small>|</small>}
+          </span>
+        );
+      })
+    }
+  </div>
+</nav>
